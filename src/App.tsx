@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  useParams,
+  Routes,
+} from "react-router-dom";
+import TransHapp from "./trans";
+import Happ from "./happ";
+import Home from "./home";
+import { usePlaidLink } from "react-plaid-link";
 
-function App() {
+import "./App.css";
+import { isDataView } from "util/types";
+
+// LINK COMPONENT
+// Use Plaid Link and pass link token and onSuccess function
+// in configuration to initialize Plaid Link
+// interface LinkProps {
+//   linkToken: string | null;
+// }
+
+// const linkedin = "https://plaid-external-api.herokuapp.com";
+
+const App = () => {
+  // const tokener: string | null = localStorage.getItem("link_token");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/:email" element={<Happ />} />
+        <Route path="/transactions/:token" element={<TransHapp />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
